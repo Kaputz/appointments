@@ -1,0 +1,52 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Listagem{% endblock title %}
+
+{% block body %}
+
+  <div>
+
+    <table class="table table-bordered table-striped table-hover">
+      <tr>
+        <th>Id</th>
+        <th>{{ 'form.date'|trans }}</th>
+        <th>{{ 'form.hour'|trans }}</th>
+        <th>{{ 'form.duration'|trans }}</th>
+        <th>{{ 'form.contact'|trans }}</th>
+        <th class="text-center">{{ 'action.show'|trans }}</th>
+        <th class="text-center">{{ 'action.edit'|trans }}</th>
+        <th class="text-center">{{ 'action.delete'|trans }}</th>
+      </tr> 
+      {% for appointment in appointments %}
+        <tr>
+          <td>{{ appointment.id }}</td>
+          <td>{{ appointment.Date|localizeddate('long', 'none') }}</td>
+          <td>{{ appointment.Hour|date("H:i") }}</td>
+          <td>{{ appointment.Duration|date("H:i") }}</td>
+          <td>{{ appointment.Contact }}</td>
+          <td style="width:10%;" class="text-center">
+            <a href="{{ appointment.id }}">
+              <span class="glyphicon glyphicon-folder-open"></span>
+            </a>
+          </td>
+          <td style="width:10%;" class="text-center">
+            <a href="edit/{{ appointment.id }}">
+              <span class="glyphicon glyphicon-edit"></span>
+            </a>
+          </td>
+          <td style="width:10%;" class="text-center">
+            <a href="delete/{{ appointment.id }}" onclick="return confirm('{{ 'message.confirm'|trans }}');">
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  </div>
+
+{% endblock %}
+
+
+        

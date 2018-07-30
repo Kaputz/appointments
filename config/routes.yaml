@@ -1,0 +1,11 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+remove_trailing_slash:
+    path: /{url}
+    controller: App\Controller\RedirectingController::removeTrailingSlash
+    requirements:
+        url: .*/$
+logout:
+    path: /logout

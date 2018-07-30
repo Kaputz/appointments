@@ -1,0 +1,42 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    providers:
+        vang_mysql:
+            entity:
+                class: App\Entity\User
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+    role_hierarchy:
+        ROLE_ADMIN:         ROLE_EMPLOYEE
+        ROLE_EMPLOYEE:      ROLE_SUPPLIER
+        ROLE_SUPPLIER:      ROLE_USER
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            provider: vang_mysql
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            # http_basic: true
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path:   /logout
+                target: /
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/appointment, roles: ROLE_USER }

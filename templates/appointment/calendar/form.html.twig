@@ -1,0 +1,179 @@
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+        {{ form_row(form.supplierId) }}
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+        {{ form_row(form.startDate)  }}
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 form-group">
+        {{ form_row(form.duration) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 form-group">
+        {{ form_row(form.op) }}
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+        {{ form_row(form.qtd) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 form-group">
+        {{ form_row(form.model) }}
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
+        {{ form_label(form.search_model_op) }}
+        <div class="input-group">
+            {{ form_widget(form.search_model_op) }}
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" id="MyButton" style="height: 34px;">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 form-group">
+        {{ form_row(
+            form.obs, {
+                'attr': { 
+                    'rows' : '5'
+                }
+            } 
+        ) }}
+    </div>
+</div>
+
+{{form_rest(form)}}
+
+<script>
+    $.datetimepicker.setLocale('pt');
+    $.datetimepicker.setDateFormatter('moment');
+    $('.datetimepicker').datetimepicker({
+        minTime: '{{ calendar.minTime }}',
+        maxTime:'{{ calendar.maxTime }}',
+        step: {{ calendar.duration }},
+    });
+    
+</script>
+
+<script>
+var $supplierId = $('#appointment_supplierId');
+$supplierId.change(function() {
+    var $form = $(this).closest('form');
+    var data = {};
+    data[$supplierId.attr('name')] = $supplierId.val();
+
+    $.ajax({
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        data: data,
+        dataType: 'json',
+    })
+    .done(function(response){
+        /* Atualiza lista de OPs */
+        $('#appointment_op').replaceWith(
+            $(response.form).find('#appointment_op')
+        );
+        /* Atualiza Qtd */
+        $('#appointment_op').change(function() {
+            $("#appointment_model").val("");
+            let str = getQtyFromOpString(
+                $('#appointment_op option:selected').text()
+            );
+            $('#appointment_qtd').val( str);
+        });
+
+        /* Atualiza lista de Modelos */
+        $('#appointment_model').replaceWith(
+            $(response.form).find('#appointment_model')
+        );
+        /* Atualiza Qtd */
+        $('#appointment_model').change(function() {
+            $("#appointment_op").val("");
+            let str = getQtyFromOpString(
+                $('#appointment_model option:selected').text()
+            );
+            $('#appointment_qtd').val( str);
+        });
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+        alert('Error : ' + errorThrown);
+        //console.log(jqXHR);
+    });
+});
+
+function getQtyFromOpString(str) {
+    let arr = str.split('QtdPend:');
+    if(arr.length > 1){
+        let arr2 = arr[1].trim().split(' ');
+        if(arr2.length > 0){
+            return arr2[0];
+        }
+    }
+}
+</script>
+
+
+
+
+<script>
+    jQuery(document).ready(function() {
+        $('#MyButton').click(function(){
+
+            // field must not be empty
+            let search = $('#appointment_search_model_op').val()
+            if( isEmpty(search) ){
+                return;
+            }
+
+            // check OPs
+            let ops = $('#appointment_op option');
+            for(let i=0; i < ops.length-1; i++) {
+                let val =  ops[i].text.split(/(\s+)/);
+                if(val[0] == search){
+                    $("#appointment_op").val(val[0]);
+                    $("#appointment_model").val('');
+
+                    let str = getQtyFromOpString(
+                        $('#appointment_op option:selected').text()
+                    );
+                    $('#appointment_qtd').val(str);
+
+                    return;
+                }
+            }
+
+            // check models
+            let models = $('#appointment_model option');
+            for(let i=0; i < models.length-1; i++) {
+                let val =  models[i].text.split(/(\s+)/);
+                if(val[0] == search){
+                    $("#appointment_model").val(val[2]);
+                    $("#appointment_op").val('');
+
+                    let str = getQtyFromOpString(
+                        $('#appointment_model option:selected').text()
+                    );
+                    $('#appointment_qtd').val(str);
+
+                    return;
+                }
+            }
+            
+            // G832525015
+            // PRO1700485.1
+        });
+    });
+
+    function isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
+</script>

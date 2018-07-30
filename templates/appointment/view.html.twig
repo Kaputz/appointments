@@ -1,0 +1,159 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">
+                {# {{ 'title.appointment_show' | trans }} {{ appointment.id }} #}
+                {{ appointment.startDate | date("Y-m-d") }} - {{ appointment.SupplierName }}
+            </h4>
+        </div>
+        <div class="modal-body">
+            <table id="appointment_view_table">
+                <tr>
+                    <th>{{ 'form.start_hour'|trans }}:</th>
+                    <td>{{ appointment.startDate | date("Y-m-d H:i:s") }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.end_hour'|trans }}:</th>
+                    <td>{{ appointment.endDate | date("Y-m-d H:i:s") }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.duration'|trans }}:</th>
+                    <td>{{ appointment.Duration }} min.</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.supplier'|trans }}:</th>
+                    <td>{{ appointment.SupplierName }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.op'|trans }}:</th>
+                    <td>{{ appointment.DocNum }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.model'|trans }}:</th>
+                    <td>{{ model }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.collection'|trans }}:</th>
+                    <td>{{ collection }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.qtd'|trans }}:</th>
+                    <td>{{ appointment.qtd }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.obs'|trans }}:</th>
+                    <td>{{ appointment.Obs }}</td>
+                </tr>
+                {# BOOTSTRAP TXTBOX #}
+                {# <tr>
+                    <th>{{ 'form.start_hour'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.startDate | date("Y-m-d H:i:s") }}" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.end_hour'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.endDate | date("Y-m-d H:i:s") }}" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.duration'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.Duration }} min." readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.supplier'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.SupplierName }}" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.op'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.DocNum }}" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>{{ 'form.model'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ model }}" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'form.qtd'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.qtd }}" readonly />
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>{{ 'form.obs'|trans }}:</th>
+                    <td class="view_td">
+                        <input type="text" class="form-control input-sm" value="{{ appointment.Obs }}" readonly />
+                    </td>
+                </tr> #}
+            </table>
+        </div>
+        <div class="modal-footer">
+        <div class="form-group" style="display: inline-block">
+            <input type="hidden" id="view_id" value="">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'action.close'|trans }}</button> 
+            &nbsp;
+
+            {% if is_granted('ROLE_EMPLOYEE') or (app.user.supplierId == appointment.supplierId) %}
+                
+                <form action="{{ path('appointment_delete', {'id': appointment.id }) }}" style="display: inline-block;"
+                onSubmit="return confirm('{{ 'confirm.delete'|trans }}');">
+                    {# the argument of csrf_token() is an arbitrary value used to generate the token #}
+                    <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}" />
+                    <button type="submit" class="btn btn-danger">{{ 'action.delete'|trans }}</button>
+                </form>
+
+            {% endif %}
+
+        </div>
+        </div>
+    </div>
+</div>
+
+<style>
+#appointment_view_table {
+    line-height: 2.0;
+}
+#appointment_view_table td {
+    padding-left:15px;
+}
+#appointment_view_table {
+    border-spacing: 5px;
+    border-collapse: separate;
+}
+@media (min-width: 768px){
+    #appointment_view_table td {
+        padding-left:15px;
+    }
+    .modal-body {
+        padding:25px 25px 25px 50px !important;
+    }
+}
+
+{# BOOTSTRAP TXTBOX #}
+{# .view_txtbox {
+    width:100%;
+    
+}
+.view_td {
+    width:79%;
+}
+.form-control[readonly]{
+    background-color: #ffffff; 
+} 
+#appointment_view_table {
+    border-spacing: 10px;
+    border-collapse: separate;
+} #}
+</style>
+

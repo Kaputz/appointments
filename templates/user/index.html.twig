@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  {{ parent() }}
+  <div id="appModal" class="modal fade" ></div>
+
+  <a href="{{ path('user_new') }}" type="button" class="btn btn-default" style="margin-bottom:20px;">{{ 'action.new'|trans }}</a> 
+
+  <table class="table table-striped">
+    <tr>
+      <th>{{ 'form.user'|trans }}</th>
+      <th>{{ 'form.name'|trans }}</th>
+      <th>{{ 'form.isActive'|trans }}</th>
+      <th>{{ 'form.roles'|trans }}</th>
+      {% if is_granted('ROLE_ADMIN') %}
+        <th>{{ 'form.enable'|trans }}</th>
+      {% endif %}
+    </tr>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>
+          {% if user.isActive == '1' %}
+            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+          {% else %}
+            <i class="fa fa-close" aria-hidden="true" style="color:red"></i>
+          {% endif %}
+        </td>
+        <td>
+          {% for role in user.roles %}
+            {{ role.role }}
+          {% endfor %}
+        </td>
+
+        {% if is_granted('ROLE_ADMIN') %}
+          <td>
+            <form style="display: inline-block;"
+              action="{{ path('user_delete', {'id': user.id }) }}" 
+              onSubmit="return confirm('{{ 'confirm.delete'|trans }}');">
+                  {# the argument of csrf_token() is an arbitrary value used to generate the token #}
+                  <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}" />
+                  <button type="submit" class="btn btn-danger">{{ 'action.delete'|trans }}</button>
+            </form>            
+          </td>
+        {% endif %}
+
+      </tr>
+    {% endfor %}
+    
+  </table>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+  jQuery(document).ready(function() {
+    
+  });
+  </script>
+{% endblock %}
+

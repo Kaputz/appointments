@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="hugo.alvela@vanguarda.pt">
+        
+        <!-- APP title -->
+        <title>{% block app_title %}{% endblock %}</title>
+        
+        {% block head_css %}
+            <link rel="stylesheet" href="{{ asset('build/css/app.css') }}" />
+            <link rel="stylesheet" href="{{ asset('build/css/custom-styles.css') }}" />
+        {% endblock %}
+
+        {% block head_js %}
+            <script src="{{ asset('build/js/app.js') }}"></script>
+        {% endblock %}
+
+        {% block stylesheets %}{% endblock %}
+
+        {# <link rel="shortcut icon" type="image/x-icon" href="{% block favicon %}{{ asset('favicon.png') }}{% endblock %}" />
+        <link rel="icon" type="image/x-icon" href="{% block favicon %}{{ asset('favicon.png') }}{% endblock %}" /> #}
+        <link rel="icon" type="image/png" href="{% block favicon %}{{ asset('favicon.png') }}{% endblock %}" />
+
+    </head>
+    <body>
+
+        {% block header %}
+            <header>
+                <div class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container">
+
+                        <div class="navbar-header col-md-3 col-lg-2">
+                            <a class="navbar-brand" href="{{ path('homepage') }}">
+                                <img src="{% block logo %}{{ asset('logo.png') }}{% endblock %}" class="logo">
+                            </a>
+                        </div>
+
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right">
+
+                                {% block header_navigation_links %}
+
+                                {% endblock %}
+
+                                {% if app.user %}
+                                    <li>
+                                        <a href="{{ path('logout') }}">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+        
+        <main role="main" class="container main">
+            {% include 'flash_messages.html.twig' %}
+            {% block body %}{% endblock %}
+        </main> 
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div id="footer-copyright" class="col-md-12">
+                        <p>
+                            <span class='text-muted pull-right'>&copy; {{ 'now'|date('Y') }} - Vanguarda: Soluções de Gestão</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

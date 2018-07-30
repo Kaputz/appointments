@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="pt-BR" datatype="plaintext" original="file.ext">
+        <body>
+            
+            <!-- http -->
+            <trans-unit id="http_error.name">
+                <source>http_error.name</source>
+                <target>Erro %status_code%</target>
+            </trans-unit>
+            <trans-unit id="http_error.description">
+                <source>http_error.description</source>
+                <target>Ocorreu um erro desconhecido (HTTP %status_code%) que impediu a sua conclusão do seu pedido.</target>
+            </trans-unit>
+            <trans-unit id="http_error.suggestion">
+                <source>http_error.suggestion</source>
+                <target><![CDATA[Tente carregar a página novamente dentro de alguns minutos ou <a href="%url%">volte para a página inicial</a>.]]></target>
+            </trans-unit>
+            <trans-unit id="http_error_403.description">
+                <source>http_error_403.description</source>
+                <target>Não tem permissão para acessar esse recurso.</target>
+            </trans-unit>
+            <trans-unit id="http_error_403.suggestion">
+                <source>http_error_403.suggestion</source>
+                <target>Peça ao administrador de sistemas para lhe dar acesso a esse recurso.</target>
+            </trans-unit>
+            <trans-unit id="http_error_404.description">
+                <source>http_error_404.description</source>
+                <target>Não conseguimos encontrar a página requisitada.</target>
+            </trans-unit>
+            <trans-unit id="http_error_404.suggestion">
+                <source>http_error_404.suggestion</source>
+                <target><![CDATA[Verifique erros de digitação na URL ou <a href="%url%">volte para a página inicial</a>.]]></target>
+            </trans-unit>
+            <trans-unit id="http_error_500.description">
+                <source>http_error_500.description</source>
+                <target>Houve um erro interno no servidor.</target>
+            </trans-unit>
+            <trans-unit id="http_error_500.suggestion">
+                <source>http_error_500.suggestion</source>
+                <target><![CDATA[Tente carregar essa página novamente dentro de alguns minutos ou <a href="%url%">volte para a página inicial</a>.]]></target>
+            </trans-unit>
+            
+            
+             <!-- error messages -->
+            <trans-unit id="Invalid credentials.">
+                <source>Invalid credentials.</source>
+                <target>Username ou password inválidos.</target>
+            </trans-unit>
+            <trans-unit id="An Error Occurred">
+                <source>An Error Occurred</source>
+                <target>Ocorreu um erro</target>
+            </trans-unit>
+            <trans-unit id="The server returned a">
+                <source>The server returned a</source>
+                <target>O servidor retornou</target>
+            </trans-unit>
+            <trans-unit id="Something is broken. Please let us know what you were doing when this error occurred.
+                              We will fix it as soon as possible. Sorry for any inconvenience caused.">
+                <source>Something is broken. Please let us know what you were doing when this error occurred.
+                        We will fix it as soon as possible. Sorry for any inconvenience caused.</source>
+                <target>Ocurreu um erro.</target>
+            </trans-unit>
+            
+
+            <!-- messages -->
+            <trans-unit id="message.confirm">
+                <source>message.confirm</source>
+                <target>Tem a certeza?</target>
+            </trans-unit>
+            <trans-unit id="message.ajaxAccessOnly">
+                <source>message.ajaxAccessOnly</source>
+                <target>Este recurso só está acessivel por Ajax.</target>
+            </trans-unit>
+            <trans-unit id="message.InvalidSupplierId">
+                <source>message.InvalidSupplierId</source>
+                <target>Id do fornecedor não encontrado.</target>
+            </trans-unit>
+            <trans-unit id="message.InvalidOpId">
+                <source>message.InvalidOpId</source>
+                <target>Id da OP não encontrada.</target>
+            </trans-unit>
+            <trans-unit id="message.InvalidDateRange">
+                <source>message.InvalidDateRange</source>
+                <target>Já existe uma marcação na data/hora selecionada, por favor escolha novamente.</target>
+            </trans-unit>
+            <trans-unit id="confirm.delete">
+                <source>confirm.delete</source>
+                <target>Deseja eliminar este registo?</target>
+            </trans-unit>
+            
+            
+            <!-- flash messages -->
+            <trans-unit id="flash.delete">
+                <source>flash.delete</source>
+                <target>Eliminado com sucesso.</target>
+            </trans-unit>
+            <trans-unit id="flash.edit">
+                <source>flash.edit</source>
+                <target>Editado com sucesso.</target>
+            </trans-unit>
+            <trans-unit id="flash.new">
+                <source>flash.new</source>
+                <target>Adicionado com sucesso.</target>
+            </trans-unit>
+            <trans-unit id="flash.new.user">
+                <source>flash.new.user</source>
+                <target>Utilizador adicionado com sucesso.</target>
+            </trans-unit>
+            
+            <!-- form -->
+            <trans-unit id="form.start_date">
+                <source>form.start_date</source>
+                <target>Data Chegada</target>
+            </trans-unit>
+            <trans-unit id="form.end_date">
+                <source>form.end_date</source>
+                <target>Data Fim</target>
+            </trans-unit>
+            <trans-unit id="form.duration">
+                <source>form.duration</source>
+                <target>Duração</target>
+            </trans-unit>
+            <trans-unit id="form.supplier">
+                <source>form.supplier</source>
+                <target>Fornecedor</target>
+            </trans-unit>
+            <trans-unit id="form.contact">
+                <source>form.contact</source>
+                <target>Contacto</target>
+            </trans-unit>
+            <trans-unit id="form.obs">
+                <source>form.obs</source>
+                <target>Observações</target>
+            </trans-unit>
+            <trans-unit id="form.start_hour">
+                <source>form.start_hour</source>
+                <target>Hora Chegada</target>
+            </trans-unit>
+            <trans-unit id="form.end_hour">
+                <source>form.end_hour</source>
+                <target>Hora Fim</target>
+            </trans-unit>
+            <trans-unit id="form.op">
+                <source>form.op</source>
+                <target>OP</target>
+            </trans-unit>
+            <trans-unit id="form.doc_id">
+                <source>form.doc_id</source>
+                <target>DocId</target>
+            </trans-unit>
+            <trans-unit id="form.depart">
+                <source>form.depart</source>
+                <target>Depart</target>
+            </trans-unit>
+            <trans-unit id="form.doc_num">
+                <source>form.doc_num</source>
+                <target>DocNum</target>
+            </trans-unit>
+            <trans-unit id="form.qtd">
+                <source>form.qtd</source>
+                <target>Quantidade</target>
+            </trans-unit>
+            <trans-unit id="form.model">
+                <source>form.model</source>
+                <target>Modelo</target>
+            </trans-unit>
+            <trans-unit id="form.user">
+                <source>form.user</source>
+                <target>Utilizador</target>
+            </trans-unit>
+            <trans-unit id="form.name">
+                <source>form.name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="form.isActive">
+                <source>form.isActive</source>
+                <target>Ativo</target>
+            </trans-unit>
+            <trans-unit id="form.roles">
+                <source>form.roles</source>
+                <target>Permissões</target>
+            </trans-unit>
+            <trans-unit id="form.enable">
+                <source>form.enable</source>
+                <target>Ativar/Desativar</target>
+            </trans-unit>
+            <trans-unit id="form.search_model_op">
+                <source>form.search_model_op</source>
+                <target>Procurar OP/Modelo</target>
+            </trans-unit>
+            <trans-unit id="form.collection">
+                <source>form.collection</source>
+                <target>Estação</target>
+            </trans-unit>
+            
+            
+            <!-- placeholders -->
+            <trans-unit id="placeholder.suppliers">
+                <source>placeholder.suppliers</source>
+                <target>-- Selecionar fornecedor --</target>
+            </trans-unit>
+            <trans-unit id="placeholder.op">
+                <source>placeholder.op</source>
+                <target>-- Selecionar OP ou Modelo--</target>
+            </trans-unit>
+            <trans-unit id="placeholder.model">
+                <source>placeholder.model</source>
+                <target>-- Selecionar Modelo ou OP --</target>
+            </trans-unit>
+            <trans-unit id="placeholder.users">
+                <source>placeholder.users</source>
+                <target>-- Selecionar Utilizador --</target>
+            </trans-unit>
+
+            
+            <!-- actions -->
+            <trans-unit id="action.show">
+                <source>action.show</source>
+                <target>Ver</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Editar</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Guardar</target>
+            </trans-unit>
+            <trans-unit id="action.close">
+                <source>action.close</source>
+                <target>Fechar</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Eliminar </target>
+            </trans-unit>
+            <trans-unit id="action.cancel">
+                <source>action.cancel</source>
+                <target>Cancelar</target>
+            </trans-unit>
+            <trans-unit id="action.back">
+                <source>action.back</source>
+                <target>Voltar</target>
+            </trans-unit>
+            <trans-unit id="action.sign_in">
+                <source>action.sign_in</source>
+                <target>Entrar</target>
+            </trans-unit>
+            
+            
+            <!-- titles -->
+            <trans-unit id="title.homepage">
+                <source>title.homepage</source>
+                <target><![CDATA[Vanguarda Soluções de Gestão]]></target>
+            </trans-unit>
+            <trans-unit id="title.login">
+                <source>title.login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="title.property">
+                <source>title.property</source>
+                <target>Propriedade</target>
+            </trans-unit>
+            <trans-unit id="title.value">
+                <source>title.value</source>
+                <target>Valor</target>
+            </trans-unit>
+            <trans-unit id="title.appointment_show">
+                <source>title.appointment_show</source>
+                <target>Marcação nº</target>
+            </trans-unit>
+            <trans-unit id="title.appointment_new">
+                <source>title.appointment_new</source>
+                <target>Formulário de Marcação</target>
+            </trans-unit>
+            
+            
+            <!-- labels -->
+            <trans-unit id="label.username">
+                <source>label.username</source>
+                <target>Utilizador</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label.role">
+                <source>label.role</source>
+                <target>Perfil</target>
+            </trans-unit>
+            <trans-unit id="label.remember_me">
+                <source>label.remember_me</source>
+                <target>Manter-me logado</target>
+            </trans-unit>            
+            
+
+            <!-- menu -->
+            <trans-unit id="menu.homepage">
+                <source>menu.homepage</source>
+                <target>Página inicial</target>
+            </trans-unit>
+            <trans-unit id="menu.logout">
+                <source>menu.logout</source>
+                <target>Logout</target>
+            </trans-unit>
+            <trans-unit id="menu.rss">
+                <source>menu.rss</source>
+                <target>RSS</target>
+            </trans-unit>
+            <trans-unit id="menu.appointments">
+                <source>menu.appointments</source>
+                <target>Marcações</target>
+            </trans-unit>
+            <trans-unit id="menu.admin">
+                <source>menu.admin</source>
+                <target>Área Administrativa</target>
+            </trans-unit>
+            <trans-unit id="menu.toggle_nav">
+                <source>menu.toggle_nav</source>
+                <target>Alternar navegação</target>
+            </trans-unit>
+            <trans-unit id="menu.choose_language">
+                <source>menu.choose_language</source>
+                <target>Escolha o idioma</target>
+            </trans-unit>
+            <trans-unit id="menu.appointment_list">
+                <source>menu.appointment_list</source>
+                <target>Listar Marcações</target>
+            </trans-unit>
+            <trans-unit id="menu.appointment_new">
+                <source>menu.appointment_new</source>
+                <target>Marcação de Cais</target>
+            </trans-unit>
+            <trans-unit id="menu.users">
+                <source>menu.users</source>
+                <target>Utilizadores</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="help.more_information">
+                <source>help.more_information</source>
+                <target><![CDATA[Para mais informações, visite a <a href="http://www.vanguarda.pt">Vanguarda</a>!]]></target>
+            </trans-unit>
+
+            <trans-unit id="rss.title">
+                <source>rss.title</source>
+                <target>Vanguarda RSS</target>
+            </trans-unit>
+            <trans-unit id="rss.description">
+                <source>rss.description</source>
+                <target>Posts mais recentes publicados no blog</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

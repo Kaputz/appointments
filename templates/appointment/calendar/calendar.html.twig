@@ -1,0 +1,185 @@
+{# ------------- como usar: -------------
+{% extends 'base.html.twig' %}
+{% use 'calendar/calendar.html.twig' %}
+{% block body %}
+  {{ parent() }}
+  {{ block('calendar') }}
+{% endblock %}
+#}
+
+{% block calendar %}
+  <div id="appModal" class="modal fade" ></div>
+  <div id='calendar'></div>
+
+  <style>
+    .fc-bgevent{
+      color:white;
+      background-color: blue;
+    }
+    .modal-body{
+      padding-bottom:0px;
+    }
+    textarea {
+      resize: vertical; 
+    }
+  </style>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      /* duração em MINUTOS! */
+      var duration = {{ calendar.duration }} ; 
+
+      /* eventos from DB */
+      var appointments = {{ appointments|json_encode|raw }};
+
+      var myevents = new Array();
+      /* formatar array para ser lido pelo calendario */
+      appointments.forEach(function(event){
+        myevents.push( {
+          start: moment(event.startDate),
+          end: moment(event.endDate),
+          title: event.supplierName,
+          rendering: 'background',
+          backgroundColor: 'blue',
+        } )
+      })
+
+      /* render do calendario */
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'today prev,next',
+          center: 'title',
+          right: ''
+        },
+        locale: "pt",
+        monthNames: [ /* necessário porque no ficheiro default vêm tudo em minusculas. */
+          'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+          'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembror'
+        ],
+        buttonText: { today: 'Hoje' },
+        views: {
+          agenda: {
+            titleFormat: 'D [de] MMMM, YYYY',
+        }},
+        defaultView: 'agendaWeek',
+        allDaySlot: false,
+        minTime: '{{ calendar.minTime }}',
+        maxTime: '{{ calendar.maxTime }}',
+        slotDuration: '00:' + duration, 
+        slotLabelInterval: '00:' + duration, 
+        slotLabelFormat: "H:mm",
+        weekends: true, /* default */
+        hiddenDays: [0],
+        columnHeaderFormat : 'ddd D/M',
+        //height: $(window).height()*0.77,
+        //height: 490,
+        contentHeight: 'auto',
+        events: myevents,
+        eventRender: function (event, element) {
+          if (event.rendering == 'background') {
+            element.append(event.title);
+          }
+        },
+        dayClick: function(date, jsEvent, view) {
+          /* se user nao estiver em agendaweek view por algum motivo, redireciona. */
+          if (view.name !== "agendaWeek") {
+            $('#calendar').fullCalendar('gotoDate', date);
+            $('#calendar').fullCalendar('changeView', 'agendaWeek');
+            return;
+          }
+
+          var startDate = moment(date);
+          //var endDate = moment(date).add(duration, 'minutes'); 
+          var action = "";
+
+          /* Verifica onde foi carregado */
+          if (!IsDateHasEvent(date)) {
+            action = "new";
+          } else {
+            action = "view";
+          }
+
+          /* VERIFICA DATAS
+           * cancela se for para inserir e data inferior à data atual (30 min tolerancia)
+           */
+          if( moment(date).subtract(duration, 'minutes').diff(moment()) < 0 ){
+            if(action === "new"){
+              alert("A data selecionada já passou.");
+              return;
+            }
+          }
+
+          /* limpa o modal, motivos de apresentação apenas */
+          $('#appModal').html('');
+
+          var type, route = "";
+          var data;
+          let eventSupplierId = '';
+
+          switch(action){
+            case "new": 
+                route = "{{ path('appointment_new')|escape('js') }}"
+                type = "POST";
+                data = {
+                  'startDate': startDate.format().split('T').join(' ')
+                  //'endDate': endDate.format().split('T').join(' ')
+                }
+                break;
+            case "view":
+                appointments.forEach(function(event){
+                  let selectedStartDate = startDate.format("YYYY-MM-DD HH:mm:ss");
+                  if(event.startDate === selectedStartDate || event.startDate < selectedStartDate && event.endDate > selectedStartDate){
+                    route = "{{ path('appointment_view', {'id': 'PLACEHOLDER'})|escape('js') }}".replace("PLACEHOLDER", event.id);
+                    type = "GET";
+                    eventSupplierId = event.supplierId;
+                  }
+                });
+                break;
+          }
+          
+
+          let isSupplier = '{{ is_granted('ROLE_SUPPLIER') }}';
+          let isEmployee = '{{ is_granted('ROLE_EMPLOYEE') }}';
+          let userSupplierId = '{{ app.user.supplierId }}';
+
+          if(action == 'new' || (isEmployee == '1') || ((isSupplier == '1') && userSupplierId == eventSupplierId)){
+              $.ajax({
+                type: type,
+                data: data,
+                dataType: 'json',
+                url: route,
+              })
+              .done(function(response){
+                $('#appModal').html(response);
+              })
+              .fail(function(jqXHR, textStatus, errorThrown){
+                alert('Error : ' + errorThrown);
+                console.warn(textStatus);
+                console.error(errorThrown.toString());
+              });
+
+              $('#appModal').modal({backdrop: 'static', keyboard: false}) 
+          }
+
+        }
+      })
+    });
+
+    // check if this day has an event before
+    function IsDateHasEvent(date) {
+      var allEvents = [];
+      allEvents = $('#calendar').fullCalendar('clientEvents');
+      var event = $.grep(allEvents, function (v) {
+        let bool = ( +moment.utc(v.start.format("YYYY-MM-DD HH:mm:ss")) === +moment.utc(date.format("YYYY-MM-DD HH:mm:ss")) ) ||
+          ( +moment.utc(v.start.format("YYYY-MM-DD HH:mm:ss")) < +moment.utc(date.format("YYYY-MM-DD HH:mm:ss")) ) &&
+          ( +moment.utc(v.end.format("YYYY-MM-DD HH:mm:ss")) > +moment.utc(date.format("YYYY-MM-DD HH:mm:ss")) );
+        //console.log(bool);
+        return bool;
+      });
+      return event.length > 0;
+    }
+
+  </script>
+{% endblock %}

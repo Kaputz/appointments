@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% use 'appointment/calendar/calendar.html.twig' %}
+
+{% block body %}
+  {{ parent() }}
+
+  {% set appointments = appointments %}
+  {{ block('calendar') }}
+
+  {# <div style='margin: 20px 0px 10px 0px;'>
+    <a href='{{ path("appointment_doc") }}'>Documentação</a>
+  </div> #}
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+{#   <script>
+  jQuery(document).ready(function() {
+    $( ".fc-left" ).append( "<button onclick='window.location.href=\" " + '{{ path("appointment_doc") }}' + " \"' type='button' class='fc-button fc-state-default fc-corner-left fc-corner-right doc-btn' style=''>Documentação</button>" );
+    $('.doc-btn').hover(
+      function(){ $(this).addClass('fc-state-hover') },
+      function(){ $(this).removeClass('fc-state-hover') }
+    )
+  });
+  </script> #}
+
+  <script>
+  jQuery(document).ready(function() {
+    let btn = "<button onclick='window.location.href=" + 
+                "\"" + '{{ path("appointment_doc") }}' + " \"' " +
+              "type='button' class='fc-button fc-state-default fc-corner-left fc-corner-right doc-btn' "+
+              "style='padding:0px 18px;'>"
+                + "<i class='fa fa-info' aria-hidden='true'></i>" + //icon
+              "</button>";
+    $( ".fc-right" ).append( btn );
+    $('.doc-btn').hover(
+      function(){ $(this).addClass('fc-state-hover') },
+      function(){ $(this).removeClass('fc-state-hover') }
+    )
+  });
+  </script>
+
+{% endblock %}
+

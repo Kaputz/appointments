@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manual do utilizador{% endblock title %}
+
+{% block body %}
+  {{ parent() }}
+  
+  <main class="col-sm-12">
+    <h1>Marcação de encomendas</h1>
+    
+    <section>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Índice</h2>
+                <p></p>
+
+                    <ul class="list--unstyled">
+                        <li class="">
+                            <span class="text-small">1.</span>
+                            <a class="" href="#chapter-1">
+                                Navegação
+                          </a>
+                      </li>
+                      <li class="">
+                          <span class="text-small">2.</span>
+                          <a class="" href="#chapter-2">
+                              Efetuar marcação
+                          </a>
+                      </li>
+                      <li class="">
+                          <span class="text-small">3.</span>
+                          <a class="" href="#chapter-3">
+                              Consultar marcação
+                          </a>
+                      </li>
+                  </ul>
+
+            </div>
+
+            <hr class="xs-separator">
+
+            <div class="col-sm-6">
+                
+            </div>
+        
+        </div>
+    </section>
+
+    <div class="section" id="chapter-1">
+        <h2>Navegação</h2>
+        
+        <p>Ao abrir a aplicação será apresentado um calendário com as marcações efetuadas durante a semana corrente.
+        O intervalo de datas pode ser visto na zona superior e é possível avançar ou retroceder nas semanas utilizado os controlos do lado direito.
+        <br>
+        Neste calendário o dia pode ser visto na zona superior e a hora na zona lateral esquerda. Cada bloco corresponde a um segmento de 30 minutos.</p>
+        
+      
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/2.jpg') }}">
+
+        <p>O dia corrente é assinalado com uma cor laranja.</p>
+
+    </div>
+
+    <div class="section" id="chapter-2">
+        <h2>Efetuar marcação</h2>
+
+        <p>Para efetuar uma marcação deve-se clicar no bloco correspondente ao dia e hora pretendidos, o que irá abrir uma janela de marcação.
+        <br>
+        <u><b>NOTA:</b></u> Nesta janela deve ser selecionado primeiro o Fornecedor. Os restantes campos serão preenchidos com base nesta seleção.
+        </p>
+      
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/3.jpg') }}">
+
+        <p>Após selecionado o Fornecedor deve ser selecionada a OP <u>ou</u> o Modelo.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/4.jpg') }}">
+
+        <p><u><b>NOTA:</b></u> A informação apresentada é a mesma mas é apresentada e ordenada pelo campo selecionado (ou OP, ou Modelo).</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/5.jpg') }}">
+
+        <p>Como alternativa é possível procurar dirétamente por uma OP ou modelo, utilizando a caixa de texto para o efeito.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/12.jpg') }}">
+
+        <p>Após selecionada a OP/Modelo, o campo "Quantidade" será preenchido por defeito com o valor da quantidade pendente. Este valor pode ser alterado.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/6.jpg') }}">
+
+        <p>Caso seja previsto que a entrega possa demorar mais que os 30min por defeito, é possível alterar a "Duração" da entrega.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/7.jpg') }}">
+
+        <p>Por fim, caso tenha sido selecionada a hora errada no calendário é ainda possível alterar esta hora.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/8.jpg') }}">
+
+    </div>
+
+    <div class="section" id="chapter-3">
+        <h2>Consultar marcação</h2>
+
+        <p>As marcações são apresentadas no calendário através de blocos azuis com o nome do fornecedor.
+        <br>Para consultar os detalhes de uma marcação deve-se clicar nestes blocos:</p>
+      
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/9.jpg') }}">
+
+        <p>Ao clicar no bloco correspondente a uma marcação irá aparecer a seguinte janela:</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/10.jpg') }}">
+
+    </div>
+
+    <div class="section" id="chapter-4">
+        <h2>Eliminar marcação</h2>
+
+        <p>É possivel ainda eliminar estes registos através da janela de consulta clicando no botão Eliminar. 
+        <br>Uma mensagem de segurança irá aparecer a solicitar confirmação antes de eliminar o registo.
+        <br><u><b>NOTA:</b></u> Esta opção só está disponível para funcionários internos.</p>
+
+        <img height="400" width="700" src="{{ asset('build/img/appointment/doc/11.jpg') }}">
+
+    </div>
+
+</main>
+
+{# <div class="admonition-wrapper">
+            <div class="tip"></div><div class="admonition admonition-tip"><p class="first admonition-title">Tip</p>
+                <p class="last">TEXTO TEXTO</p>
+            </div>
+        </div> #}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .section {
+            margin-bottom:40px;
+        }
+        .section img {
+            margin:10px 0px;
+            
+        }
+        p {
+            margin-top:20px;
+        }
+        h2 {
+            margin-top:40px;
+        }
+    </style>
+{% endblock %}

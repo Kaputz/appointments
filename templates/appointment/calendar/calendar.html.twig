@@ -98,7 +98,8 @@
           if (!IsDateHasEvent(date)) {
             action = "new";
           } else {
-            action = "view";
+            //action = "view";
+            action="list";
           }
 
           /* VERIFICA DATAS
@@ -114,14 +115,14 @@
           /* limpa o modal, motivos de apresentação apenas */
           $('#appModal').html('');
 
-          var type, route = "";
+          var method, route = "";
           var data;
           let eventSupplierId = '';
 
           switch(action){
             case "new": 
                 route = "{{ path('appointment_new')|escape('js') }}"
-                type = "POST";
+                method = "POST";
                 data = {
                   'startDate': startDate.format().split('T').join(' ')
                   //'endDate': endDate.format().split('T').join(' ')
@@ -132,11 +133,19 @@
                   let selectedStartDate = startDate.format("YYYY-MM-DD HH:mm:ss");
                   if(event.startDate === selectedStartDate || event.startDate < selectedStartDate && event.endDate > selectedStartDate){
                     route = "{{ path('appointment_view', {'id': 'PLACEHOLDER'})|escape('js') }}".replace("PLACEHOLDER", event.id);
-                    type = "GET";
+                    method = "GET";
                     eventSupplierId = event.supplierId;
                   }
                 });
                 break;
+            case "list":
+              route = "{{ path('appointment_list')|escape('js') }}"
+              method = "POST";
+              data = {
+                'startDate': startDate.format().split('T').join(' '),
+                'duration': duration
+              }
+              break;
           }
           
 
@@ -146,7 +155,7 @@
 
           if(action == 'new' || (isEmployee == '1') || ((isSupplier == '1') && userSupplierId == eventSupplierId)){
               $.ajax({
-                type: type,
+                type: method,
                 data: data,
                 dataType: 'json',
                 url: route,

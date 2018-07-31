@@ -236,45 +236,6 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * Cria "View"
-     * @Route("/appointment/{id}", name="appointment_view")
-     * @Method("GET")
-     */
-    public function viewAction(
-        Appointment $entity, 
-        Request $request, 
-        AppointmentService $service,
-        TranslatorInterface $translator
-    ) {
-        /* You can only access this using Ajax! */
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse(array(
-                'message' => $translator->trans('message.ajaxAccessOnly')
-            ), 400);
-        }
-
-        //$response = $service->getOpById($entity->getDocNum(), $translator); //penso que é pa apagar.
-
-        $response = $service->getOpById($entity->getDocNum());
-        $op = json_decode($response->getContent(), true);
-        $op = reset($op);
-
-        $template = $this->render(
-            'appointment/view.html.twig', 
-            array( 
-                'appointment' => $entity,
-                'model' => $op['model'],
-                'collection' => $op['collection']
-            )
-        )->getContent();
-
-        $json = json_encode($template);
-        $response = new Response($json, 200);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
-    }
-
-    /**
      * @Route("/appointment/delete/{id}", requirements={"id" = "\d+"}, name="appointment_delete")
      * @Method("GET")
      */
@@ -308,6 +269,107 @@ class AppointmentController extends AbstractController
             'appointment'
         );
     }
+
+    /**
+     * Cria "List"
+     * @Route("/appointment/list", name="appointment_list")
+     * @Method("POST")
+     */
+    public function listAction(
+        Request $request
+    ) {
+        /* You can only access this using Ajax! */
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'message' => $translator->trans('message.ajaxAccessOnly')
+            ), 400);
+        }
+
+        $startDate = \DateTime::createFromFormat('Y-m-d H:i:s', $request->request->get('startDate'));
+        $duration = $request->request->get('duration');
+        $tmpDate = \DateTimeImmutable::createFromMutable($startDate);
+        $endDate = $tmpDate->add(new \DateInterval('PT' . $duration . 'M'));
+
+        $repository = $this->getDoctrine()
+                ->getRepository(Appointment::class);
+        $appointments = $repository->findByDateRange($startDate, $endDate);
+
+        /* format array as JSON */
+        $arr = Array();
+        foreach ($appointments as $appointment) {
+            $arr[] = [
+                'id' => $appointment->getId(),
+                'startDate' => $appointment->getStartDate()->format('Y-m-d'),
+                'endDate' => $appointment->getEndDate()->format('Y-m-d'),
+                'startHour' => $appointment->getStartDate()->format('H:i:s'),
+                'endHour' => $appointment->getEndDate()->format('H:i:s'),
+                'duration' => $appointment->getDuration(),
+                //'obs' => $appointment->getObs(),
+                //'docId' => $appointment->getDocId(),
+                //'depart' => $appointment->getDepart(),
+                //'docNum' => $appointment->getDocNum(),
+                //'qtd' => $appointment->getQtd(),
+                //'lastUpdatedDate' => $appointment->getLastUpdatedDate(),
+                //'lastUpdatedUser' => $appointment->getLastUpdatedUser(),
+                'supplierId' => $appointment->getSupplierId(),
+                'supplierName' => $appointment->getSupplierName(),
+            ];
+        }
+
+        $template = $this->render(
+            'appointment/list.html.twig', 
+            array( 
+                'appointments' => $arr,
+                'startDate' => $request->request->get('startDate')
+            )
+        )->getContent();
+
+        $json = json_encode($template);
+        $response = new Response($json, 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    
+
+    /**
+     * Cria "View"
+     * @Route("/appointment/{id}", name="appointment_view")
+     * @Method("POST")
+     */
+    public function viewAction(
+        Appointment $entity, 
+        Request $request, 
+        AppointmentService $service,
+        TranslatorInterface $translator
+    ) {
+        /* You can only access this using Ajax! */
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'message' => $translator->trans('message.ajaxAccessOnly')
+            ), 400);
+        }
+
+        $response = $service->getOpById($entity->getDocNum());
+        $op = json_decode($response->getContent(), true);
+        $op = reset($op);
+
+        $template = $this->render(
+            'appointment/view.html.twig', 
+            array( 
+                'appointment' => $entity,
+                'model' => $op['model'],
+                'collection' => $op['collection']
+            )
+        )->getContent();
+
+        $json = json_encode($template);
+        $response = new Response($json, 200);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    
     
     
     

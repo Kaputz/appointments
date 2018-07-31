@@ -88,7 +88,7 @@ class AppointmentService extends AbstractController
     public function getSupplierById(string $supplierId)
     {
         $query = "exec [VGWebCais_Get_Fornecedor] 'subContrat = ".$supplierId."'";
-        
+
         $results = $this->getDataFromSQLSRV($query);
 
         foreach($results as $supplier){

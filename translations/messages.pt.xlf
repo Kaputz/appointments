@@ -235,6 +235,10 @@
                 <source>action.delete</source>
                 <target>Eliminar </target>
             </trans-unit>
+            <trans-unit id="action.new">
+                <source>action.new</source>
+                <target>Adicionar</target>
+            </trans-unit>
             <trans-unit id="action.cancel">
                 <source>action.cancel</source>
                 <target>Cancelar</target>

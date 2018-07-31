@@ -24,7 +24,7 @@
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "^1.0",
         "symfony/process": "^4.0",
-        "symfony/requirements-checker": "^1.0",
+        "symfony/requirements-checker": "^1.1",
         "symfony/security": "^4.0",
         "symfony/security-bundle": "^4.0",
         "symfony/security-csrf": "^4.0",
@@ -72,8 +72,8 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script",
-            "requirements-checker": "script"
+            "requirements-checker": "script",
+            "security-checker security:check": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -87,7 +87,6 @@
     },
     "extra": {
         "symfony": {
-            "id": "01CBHF04FSECMWF4JGRHY90EMW",
             "allow-contrib": false
         }
     }

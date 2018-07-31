@@ -5,7 +5,7 @@ parameters:
     calendar:
         minTime: '06:00'
         maxTime: '20:00'
-        duration: 30 # MINUTES
+        duration: 15 # MINUTES
     sql:
         user: 'SA'
         pw: '3019Vang'
@@ -39,7 +39,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
     
     #twig.intl extension
     twig.extension.intl:

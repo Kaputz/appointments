@@ -77,14 +77,11 @@
         //height: 490,
         contentHeight: 'auto',
         events: myevents,
-        eventRender: function (event, element) {
-          /*if (event.rendering == 'background') {
-            element.append(event.title);
-          }*/
+        /*eventRender: function (event, element) {
           if (event.rendering == 'background') {
-              element.append("...");
+            element.append(event.title);
           }
-        },
+        },*/
         dayClick: function(date, jsEvent, view) {
           /* se user nao estiver em agendaweek view por algum motivo, redireciona. */
           if (view.name !== "agendaWeek") {

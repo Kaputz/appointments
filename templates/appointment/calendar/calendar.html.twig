@@ -78,8 +78,11 @@
         contentHeight: 'auto',
         events: myevents,
         eventRender: function (event, element) {
-          if (event.rendering == 'background') {
+          /*if (event.rendering == 'background') {
             element.append(event.title);
+          }*/
+          if (event.rendering == 'background') {
+              element.append("...");
           }
         },
         dayClick: function(date, jsEvent, view) {

@@ -16,7 +16,7 @@
                 <th>{{ 'form.start_hour'|trans }}</th>
                 <th>{{ 'form.duration'|trans }}</th>
                 <th class="text-center">{{ 'action.show'|trans }}</th>
-                <th class="text-center">{{ 'action.edit'|trans }}</th>
+                <!--<th class="text-center">{{ 'action.edit'|trans }}</th>-->
                 <th class="text-center">{{ 'action.delete'|trans }}</th>
               </tr> 
               {% for appointment in appointments %}
@@ -24,19 +24,19 @@
                   <td>{{ appointment.supplierName }}</td>
                   <td>{{ appointment.startDate|localizeddate('long', 'none') }}</td>
                   <td>{{ appointment.startHour|date("H:i") }}</td>
-                  <td>{{ appointment.duration|date("H:i") }}</td>
+                  <td>{{ appointment.duration }} Min.</td>
                   <td style="width:10%;" class="text-center">
-                    <a href="appointment/{{ appointment.id }}">
+                    <a href="appointment/{{ appointment.id }}" id="view" name="{{ appointment.id }}">
                       <span class="glyphicon glyphicon-folder-open"></span>
                     </a>
                   </td>
-                  <td style="width:10%;" class="text-center">
+                  <!--<td style="width:10%;" class="text-center">
                     <a href="appointment/edit/{{ appointment.id }}">
                       <span class="glyphicon glyphicon-edit"></span>
                     </a>
-                  </td>
+                  </td>-->
                   <td style="width:10%;" class="text-center">
-                    <a href="appointment/delete/{{ appointment.id }}" onclick="return confirm('{{ 'message.confirm'|trans }}');">
+                    <a href="appointment/delete/{{ appointment.id }}" id="del" name="{{ appointment.id }}" onclick="return confirm('{{ 'message.confirm'|trans }}');">
                       <span class="glyphicon glyphicon-remove"></span>
                     </a>
                   </td>
@@ -59,15 +59,19 @@
 </div>
 
 <script type="text/javascript">
+  // ADICIONAR
   $("#add").click(function() {
+    //prepara info
     var method = "POST";
     var route = "{{ path('appointment_new')|escape('js') }}";
-    data = {
-      'startDate': {{ startDate }}
+    var data = {
+      'startDate': '{{ startDate }}'
     };
 
+    // limpa o modal, questões de apresentação.
     $('#appModal').html('');
 
+    //chamada ajax para ir buscar o novo conteudo
     $.ajax({
       type: method,
       data: data,
@@ -75,6 +79,7 @@
       url: route,
     })
     .done(function(response){
+      //set do novo conteudo no modal
       $('#appModal').html(response);
     })
     .fail(function(jqXHR, textStatus, errorThrown){
@@ -84,6 +89,40 @@
     });
 
     $('#appModal').modal({backdrop: 'static', keyboard: false}) 
-
   });
+
+  // VISUALIZAR
+  $("#view").click(function(e) {
+    //bloqueia redireconamento do <a href=""
+    e.preventDefault();
+
+    //prepara info
+    var id = this.name;
+    //var route = e.target.baseURI;
+    var method = "GET";
+
+    var route = "{{ path('appointment_view', {'id': 'PLACEHOLDER'})|escape('js') }}".replace("PLACEHOLDER", id);
+
+    // limpa o modal, questões de apresentação.
+    $('#appModal').html('');
+
+    //chamada ajax para ir buscar o novo conteudo
+    $.ajax({
+      type: method,
+      dataType: 'json',
+      url: route,
+    })
+    .done(function(response){
+      //set do novo conteudo no modal
+      $('#appModal').html(response);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+      alert('Error : ' + errorThrown);
+      console.warn(textStatus);
+      console.error(errorThrown.toString());
+    });
+
+    $('#appModal').modal({backdrop: 'static', keyboard: false}) 
+  });
+
 </script>

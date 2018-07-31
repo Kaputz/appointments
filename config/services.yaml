@@ -5,7 +5,7 @@ parameters:
     calendar:
         minTime: '06:00'
         maxTime: '20:00'
-        duration: 15 # MINUTES
+        duration: 30 # MINUTES
     sql:
         user: 'SA'
         pw: '3019Vang'

@@ -22,7 +22,6 @@ use App\Form\AppointmentType;
 
 class AppointmentController extends AbstractController
 {
-
     /**
      * Index da classe
      * 
@@ -104,7 +103,7 @@ class AppointmentController extends AbstractController
             $endDate = $tmpDate->add(new \DateInterval('PT' . $duration . 'M'));
             $entity->setEndDate($endDate);
 
-            /* verifica datas */
+            /* verifica datas 
             $repository = $this->getDoctrine()
                 ->getRepository(Appointment::class);
             $appointments = 
@@ -116,7 +115,7 @@ class AppointmentController extends AbstractController
                 return new JsonResponse(array(
                     'message' => $translator->trans('message.InvalidDateRange')
                 ), 400);
-            }
+            }*/
 
             /* nome fornecedor */
             $response = $service->getSupplierById($entity->getSupplierId());
@@ -269,7 +268,7 @@ class AppointmentController extends AbstractController
             'appointment'
         );
     }
-
+    
     /**
      * Cria "List"
      * @Route("/appointment/list", name="appointment_list")
@@ -335,7 +334,7 @@ class AppointmentController extends AbstractController
     /**
      * Cria "View"
      * @Route("/appointment/{id}", name="appointment_view")
-     * @Method("POST")
+     * @Method("GET")
      */
     public function viewAction(
         Appointment $entity, 

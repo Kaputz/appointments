@@ -110,18 +110,18 @@ class AppointmentService extends AbstractController
             sprintf("%-15s", $op['model']) .
             sprintf("%-15s", $op['id']) .
             sprintf("%-8s", $op['collection']) .
-            sprintf("%-14s", 'QtdPrev: ' . round($op['qtd_prev']) ) . 
-            sprintf("%-14s", 'QtdPend: ' . round($op['qtd_pend']) ) . 
-            sprintf("%-14s", 'QtdEnt: ' . round($op['qtd_ent']) ) .
+            sprintf("%-16s", 'QtdPrev: ' . round($op['qtd_prev']) ) . 
+            sprintf("%-16s", 'QtdPend: ' . round($op['qtd_pend']) ) . 
+            sprintf("%-16s", 'QtdEnt: ' . round($op['qtd_ent']) ) .
         '';
         } else {
             $txt = '' . 
             sprintf("%-15s", $op['id']) .
             sprintf("%-15s", $op['model']) .
             sprintf("%-8s", $op['collection']) .
-            sprintf("%-14s", 'QtdPrev: ' . round($op['qtd_prev']) ) . 
-            sprintf("%-14s", 'QtdPend: ' . round($op['qtd_pend']) ) . 
-            sprintf("%-14s", 'QtdEnt: ' . round($op['qtd_ent']) ) .
+            sprintf("%-16s", 'QtdPrev: ' . round($op['qtd_prev']) ) . 
+            sprintf("%-16s", 'QtdPend: ' . round($op['qtd_pend']) ) . 
+            sprintf("%-16s", 'QtdEnt: ' . round($op['qtd_ent']) ) .
         '';
         }
 

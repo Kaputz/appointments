@@ -17,7 +17,9 @@
                 <th>{{ 'form.duration'|trans }}</th>
                 <th class="text-center">{{ 'action.show'|trans }}</th>
                 <!--<th class="text-center">{{ 'action.edit'|trans }}</th>-->
-                <th class="text-center">{{ 'action.delete'|trans }}</th>
+                {% if is_granted('ROLE_EMPLOYEE') or (app.user.supplierId == appointment.supplierId) %}
+                  <th class="text-center">{{ 'action.delete'|trans }}</th>
+                {% endif %}
               </tr> 
               {% for appointment in appointments %}
                 <tr>
@@ -35,11 +37,13 @@
                       <span class="glyphicon glyphicon-edit"></span>
                     </a>
                   </td>-->
-                  <td style="width:10%;" class="text-center">
-                    <a href="appointment/delete/{{ appointment.id }}" id="del" name="{{ appointment.id }}" onclick="return confirm('{{ 'message.confirm'|trans }}');">
-                      <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                  </td>
+                  {% if is_granted('ROLE_EMPLOYEE') or (app.user.supplierId == appointment.supplierId) %}
+                    <td style="width:10%;" class="text-center">
+                      <a href="appointment/delete/{{ appointment.id }}" id="del" name="{{ appointment.id }}" onclick="return confirm('{{ 'message.confirm'|trans }}');">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </a>
+                    </td>
+                  {% endif %}
                 </tr>
               {% endfor %}
             </table>

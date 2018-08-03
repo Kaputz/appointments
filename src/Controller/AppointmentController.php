@@ -134,7 +134,15 @@ class AppointmentController extends AbstractController
 
             $op = reset($op);
 
-            $entity->setDocId('OP');
+
+            if($request->request->get('appointment')['model'] == ''){
+                $entity->setDocId('FOREN');
+            } else {
+                $entity->setDocId('OP');
+            }
+            
+
+
             $entity->setDocNum($opId);
             $entity->setDepart($op['depart']);
 

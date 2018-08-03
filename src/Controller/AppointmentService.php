@@ -87,7 +87,7 @@ class AppointmentService extends AbstractController
      */
     public function getSupplierById(string $supplierId)
     {
-        $query = "exec [VGWebCais_Get_Fornecedor] 'subContrat = ".$supplierId."'";
+        $query = "exec [VGWebCais_Get_Fornecedor] 'forn_counter = ".$supplierId."'";
 
         $results = $this->getDataFromSQLSRV($query);
 
@@ -125,8 +125,6 @@ class AppointmentService extends AbstractController
         '';
         }
 
-        //file_put_contents("/var/www/html/log.txt", "\n" . $txt, FILE_APPEND | LOCK_EX);
-
         return [
             $txt => $op['id']
         ];
@@ -140,7 +138,7 @@ class AppointmentService extends AbstractController
         return [
             'id' => $op['op'],
             'depart' => $op['depart'],
-            'model' => $op['ref'],
+            'model' => $op['Ref'],
             'qtd_prev' => $op['qtd_prev'],
             'qtd_pend' => $op['qtd_pend'],
             'qtd_ent' => $op['qtd_ent'],
@@ -174,7 +172,7 @@ class AppointmentService extends AbstractController
     public function getOpBySupplierId(
         string $supplierId
     ) {
-        $query = "exec [VGWebCais_Get_OP] 'subContrat = ".$supplierId."'";
+        $query = "exec [VGWebCais_Get_OP] 'forn_counter = ".$supplierId."'";
 
         $results = $this->getDataFromSQLSRV($query);
 
@@ -202,7 +200,7 @@ class AppointmentService extends AbstractController
     public function getOpById(
         string $id
     ) {
-        $query = "exec [VGWebCais_Get_OP] 'op.id = ''".$id."'' '";
+        $query = "exec [VGWebCais_Get_OP] 'op = ''".$id."'' '";
 
         $results = $this->getDataFromSQLSRV($query);
 

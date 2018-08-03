@@ -143,7 +143,7 @@
             </trans-unit>
             <trans-unit id="form.op">
                 <source>form.op</source>
-                <target>OP</target>
+                <target>OP / Encomenda</target>
             </trans-unit>
             <trans-unit id="form.doc_id">
                 <source>form.doc_id</source>
@@ -163,7 +163,7 @@
             </trans-unit>
             <trans-unit id="form.model">
                 <source>form.model</source>
-                <target>Modelo</target>
+                <target>Modelo / Encomenda</target>
             </trans-unit>
             <trans-unit id="form.user">
                 <source>form.user</source>
@@ -187,7 +187,7 @@
             </trans-unit>
             <trans-unit id="form.search_model_op">
                 <source>form.search_model_op</source>
-                <target>Procurar OP/Modelo</target>
+                <target>Procurar OP / Modelo / Encomenda</target>
             </trans-unit>
             <trans-unit id="form.collection">
                 <source>form.collection</source>
@@ -202,7 +202,7 @@
             </trans-unit>
             <trans-unit id="placeholder.op">
                 <source>placeholder.op</source>
-                <target>-- Selecionar OP ou Modelo--</target>
+                <target>-- Selecionar OP ou Modelo --</target>
             </trans-unit>
             <trans-unit id="placeholder.model">
                 <source>placeholder.model</source>

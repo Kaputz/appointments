@@ -66,7 +66,7 @@ class AppointmentController extends AbstractController
         Request $request
     ) {
          return $this->render(
-            'appointment/doc.html.twig'
+            'appointment/doc_v2.html.twig'
         );
     }
 
